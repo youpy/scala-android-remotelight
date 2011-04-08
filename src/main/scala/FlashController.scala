@@ -24,6 +24,10 @@ class FlashController {
   }
 
   def setFlashMode(mode:String) {
+    if(camera == null) {
+      resume
+    }
+
     val cameraParameters = camera.getParameters
 
     if(cameraParameters.getFlashMode != mode) {
