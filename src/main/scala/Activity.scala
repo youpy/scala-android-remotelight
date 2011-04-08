@@ -11,6 +11,8 @@ class MainActivity extends Activity {
 
     var wv = new WebView(this)
 
+    flash.resume
+
     wv.getSettings.setJavaScriptEnabled(true)
     wv.addJavascriptInterface(flash, "roid")
     wv.loadUrl("http://youpy.no.de/light/")
@@ -19,6 +21,6 @@ class MainActivity extends Activity {
   override def onPause {
     super.onPause
 
-    flash.off
+    flash.pause
   }
 }

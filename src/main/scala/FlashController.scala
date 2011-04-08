@@ -5,19 +5,30 @@ import _root_.android.hardware.Camera
 class FlashController {
   var camera:Camera = null
 
-  def on {
+  def resume {
     camera = Camera.open
-    val cameraParameters = camera.getParameters
+  }
 
-    if(cameraParameters.getFlashMode != "touch") {
-      cameraParameters.setFlashMode("torch")
-      camera.setParameters(cameraParameters)
+  def pause {
+    if(camera != null) {
+      camera.release
     }
   }
 
+  def on {
+    setFlashMode("torch")
+  }
+
   def off {
-    if(camera != null) {
-      camera.release
+    setFlashMode("off")
+  }
+
+  def setFlashMode(mode:String) {
+    val cameraParameters = camera.getParameters
+
+    if(cameraParameters.getFlashMode != mode) {
+      cameraParameters.setFlashMode(mode)
+      camera.setParameters(cameraParameters)
     }
   }
 }
